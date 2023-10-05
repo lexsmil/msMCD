@@ -19,18 +19,20 @@ $tmp = [
         'type' => 'textfield',
         'value' => 'small',
     ],
-    'msmcd_animate_mini_cart' => [
+    /*
+    'animate' => [
         'type' => 'combo-boolean',
         'value' => false,
     ],
-    'msmcd_dropdown_mini_cart' => [
+    'dropdown' => [
         'type' => 'combo-boolean',
         'value' => false,
     ],
-    'msmcd_change_count_mini_cart' => [
+    'changeCount' => [
         'type' => 'combo-boolean',
         'value' => false,
     ],
+    */
 ];
 
 foreach ($tmp as $k => $v) {

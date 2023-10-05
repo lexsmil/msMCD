@@ -39,7 +39,7 @@
                         <div class="btn-group">&times;</div>
                         <div class="btn-group"><span>{$item.price}</span></div>
                         <div class="btn-group">=</div>
-                        <div class="btn-group"><span>{$item.sum}</span></div>
+                        <div class="btn-group"><span>{$item.sum}</span></div>  {'ms2_frontend_currency' | lexicon}
                     </div>
                     <button class="btn btn-default msmcd-action" type="submit"
                             name="ms2_action" value="cart/change" style="display: none;"></button>
