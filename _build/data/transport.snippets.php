@@ -3,11 +3,11 @@
 $snippets = [];
 
 $tmp = [
-	'msmcdcount' => [
+	'msMCDCount' => [
 		'file' => 'msmcdcount',
 		'description' => '',
 	],
-	'msmcdminicart' => [
+	'msMCDMiniCart' => [
 		'file' => 'msmcdminicart',
 		'description' => '',
 	]

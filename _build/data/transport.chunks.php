@@ -3,8 +3,24 @@
 $chunks = [];
 
 $tmp = [
-	'msmcdcount' => [
+	'msMCDCountTpl' => [
 		'file' => 'msmcdcount',
+		'description' => '',
+	],
+	'msMCDMiniCartOuterTpl' => [
+		'file' => 'msmcdminicartouter',
+		'description' => '',
+	],
+	'msMCDMiniCartRowTpl' => [
+		'file' => 'msmcdminicartrow',
+		'description' => '',
+	],
+	'msMCDProductsRowTpl' => [
+		'file' => 'msmcdproductsrow',
+		'description' => '',
+	],
+	'msMCDProductsRowInputTpl' => [
+		'file' => 'msmcdproductsrowinput',
 		'description' => '',
 	],
 ];

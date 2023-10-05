@@ -98,6 +98,49 @@ if (defined('BUILD_CHUNK_UPDATE')) {
 	}
 }
 
+/* load plugins events */
+if (defined('BUILD_EVENT_UPDATE')) {
+	$events = include $sources['data'] . 'transport.events.php';
+	if (!is_array($events)) {
+		$modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in events.');
+	}
+	else {
+		$attributes = array(
+			xPDOTransport::PRESERVE_KEYS => true,
+			xPDOTransport::UPDATE_OBJECT => BUILD_EVENT_UPDATE,
+		);
+		foreach ($events as $event) {
+			$vehicle = $builder->createVehicle($event, $attributes);
+			$builder->putVehicle($vehicle);
+		}
+		$modx->log(xPDO::LOG_LEVEL_INFO, 'Packaged in ' . count($events) . ' Plugins events.');
+	}
+	unset ($events, $event, $attributes);
+}
+
+/* add plugins */
+if (defined('BUILD_PLUGIN_UPDATE')) {
+	$attr[xPDOTransport::RELATED_OBJECT_ATTRIBUTES]['Plugins'] = array(
+		xPDOTransport::PRESERVE_KEYS => false,
+		xPDOTransport::UPDATE_OBJECT => BUILD_PLUGIN_UPDATE,
+		xPDOTransport::UNIQUE_KEY => 'name',
+	);
+	$attr[xPDOTransport::RELATED_OBJECT_ATTRIBUTES]['PluginEvents'] = array(
+		xPDOTransport::PRESERVE_KEYS => true,
+		xPDOTransport::UPDATE_OBJECT => BUILD_PLUGIN_UPDATE,
+		xPDOTransport::UNIQUE_KEY => array('pluginid', 'event'),
+	);
+	$plugins = include $sources['data'] . 'transport.plugins.php';
+	if (!is_array($plugins)) {
+		$modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in plugins.');
+	}
+	else {
+		$category->addMany($plugins);
+		$modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($plugins) . ' plugins.');
+	}
+}
+
+
 $vehicle = $builder->createVehicle($category, $attr);
 
 /* now pack in resolvers */
