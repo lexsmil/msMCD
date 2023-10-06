@@ -40,4 +40,5 @@ if (!empty($jsUrl)) {
         $modx->regClientScript(MODX_ASSETS_URL . $jsUrl);
     }
 }
+
 return $output;
