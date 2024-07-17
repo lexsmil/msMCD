@@ -64,6 +64,24 @@ $attr = array(
 	xPDOTransport::RELATED_OBJECTS => true,
 );
 
+/* Settings */
+$settings = include_once $sources['data'] . 'transport.settings.php';
+$attributes = array(
+	xPDOTransport::UNIQUE_KEY => 'key',
+	xPDOTransport::PRESERVE_KEYS => true,
+	xPDOTransport::UPDATE_OBJECT => false,
+);
+if (!is_array($settings)) {
+	$modx->log(modX::LOG_LEVEL_FATAL, 'Adding settings failed.');
+}
+foreach ($settings as $setting) {
+	$vehicle = $builder->createVehicle($setting, $attributes);
+	$builder->putVehicle($vehicle);
+}
+$modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($settings) . ' system settings.');
+flush();
+unset($settings, $setting, $attributes);
+
 /* add snippets */
 if (defined('BUILD_SNIPPET_UPDATE')) {
 	$attr[xPDOTransport::RELATED_OBJECT_ATTRIBUTES]['Snippets'] = array(
@@ -74,8 +92,7 @@ if (defined('BUILD_SNIPPET_UPDATE')) {
 	$snippets = include $sources['data'] . 'transport.snippets.php';
 	if (!is_array($snippets)) {
 		$modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in snippets.');
-	}
-	else {
+	} else {
 		$category->addMany($snippets);
 		$modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($snippets) . ' snippets.');
 	}
@@ -91,8 +108,7 @@ if (defined('BUILD_CHUNK_UPDATE')) {
 	$chunks = include $sources['data'] . 'transport.chunks.php';
 	if (!is_array($chunks)) {
 		$modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in chunks.');
-	}
-	else {
+	} else {
 		$category->addMany($chunks);
 		$modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($chunks) . ' chunks.');
 	}
@@ -103,8 +119,7 @@ if (defined('BUILD_EVENT_UPDATE')) {
 	$events = include $sources['data'] . 'transport.events.php';
 	if (!is_array($events)) {
 		$modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in events.');
-	}
-	else {
+	} else {
 		$attributes = array(
 			xPDOTransport::PRESERVE_KEYS => true,
 			xPDOTransport::UPDATE_OBJECT => BUILD_EVENT_UPDATE,
@@ -115,7 +130,7 @@ if (defined('BUILD_EVENT_UPDATE')) {
 		}
 		$modx->log(xPDO::LOG_LEVEL_INFO, 'Packaged in ' . count($events) . ' Plugins events.');
 	}
-	unset ($events, $event, $attributes);
+	unset($events, $event, $attributes);
 }
 
 /* add plugins */
@@ -133,8 +148,7 @@ if (defined('BUILD_PLUGIN_UPDATE')) {
 	$plugins = include $sources['data'] . 'transport.plugins.php';
 	if (!is_array($plugins)) {
 		$modx->log(modX::LOG_LEVEL_ERROR, 'Could not package in plugins.');
-	}
-	else {
+	} else {
 		$category->addMany($plugins);
 		$modx->log(modX::LOG_LEVEL_INFO, 'Packaged in ' . count($plugins) . ' plugins.');
 	}
@@ -156,8 +170,7 @@ $vehicle->resolve('file', array(
 foreach ($BUILD_RESOLVERS as $resolver) {
 	if ($vehicle->resolve('php', array('source' => $sources['resolvers'] . 'resolve.' . $resolver . '.php'))) {
 		$modx->log(modX::LOG_LEVEL_INFO, 'Added resolver "' . $resolver . '" to category.');
-	}
-	else {
+	} else {
 		$modx->log(modX::LOG_LEVEL_INFO, 'Could not add resolver "' . $resolver . '" to category.');
 	}
 }
@@ -214,8 +227,7 @@ if (defined('PKG_AUTO_INSTALL') && PKG_AUTO_INSTALL) {
 			if (is_array($r) && !empty($r)) {
 				$package->set('release', $r[0]);
 				$package->set('release_index', (isset($r[1]) ? $r[1] : '0'));
-			}
-			else {
+			} else {
 				$package->set('release', $sig[2]);
 			}
 		}
