@@ -34,7 +34,7 @@
         <div class="card-footer">
 
             {'!msMCDCount' | snippet: [
-                'id' => "{$id}"
+                'id' => $id
             ]}
 
             <input type="hidden" name="id" value="{$id}">
