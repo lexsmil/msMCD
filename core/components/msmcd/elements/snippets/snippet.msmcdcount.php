@@ -18,7 +18,7 @@ $output = '';
 $cart = $msMCD->getCart();
 $data = array(
     'action' => 'cart/add',
-    'count' => '',
+    'count' => 0,
 );
 
 if ($cart) {
