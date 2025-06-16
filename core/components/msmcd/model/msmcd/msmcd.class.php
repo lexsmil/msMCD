@@ -19,12 +19,16 @@ class msMCD
      */
     function __construct(modX &$modx, array $config = array())
     {
-        $this->modx =& $modx;
+        $this->modx = &$modx;
 
-        $corePath = $this->modx->getOption('msmcd_core_path', $config,
+        $corePath = $this->modx->getOption(
+            'msmcd_core_path',
+            $config,
             $this->modx->getOption('core_path') . 'components/msmcd/'
         );
-        $assetsUrl = $this->modx->getOption('msmcd_assets_url', $config,
+        $assetsUrl = $this->modx->getOption(
+            'msmcd_assets_url',
+            $config,
             $this->modx->getOption('assets_url') . 'components/msmcd/'
         );
         $actionUrl = $assetsUrl . 'action.php';
@@ -41,8 +45,11 @@ class msMCD
             'templatesPath' => $corePath . 'elements/templates/',
             'snippetsPath' => $corePath . 'elements/snippets/',
 
-            'fields_mini_cart' => $this->modx->getOption('msmcd_fields_mini_cart',
-                null, 'pagetitle'),
+            'fields_mini_cart' => $this->modx->getOption(
+                'msmcd_fields_mini_cart',
+                null,
+                'pagetitle'
+            ),
         ), $config);
 
         $this->modx->addPackage('msmcd', $this->config['modelPath']);
@@ -54,7 +61,7 @@ class msMCD
         }
         $this->pdoTools = $this->modx->getService('pdoTools');
     }
-    
+
     /**
      *
      */
